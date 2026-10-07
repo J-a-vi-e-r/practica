@@ -7,3 +7,4 @@ urlpatterns = [
     path('editar/<int:id>/', views.editar_objeto, name='editar_objeto'),
     path('eliminar/<int:id>/', views.eliminar_objeto, name='eliminar_objeto'),
 ]
+

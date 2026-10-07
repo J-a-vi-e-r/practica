@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Objeto
+from .forms import ObjetoForm
 
 def listar_objetos(request):
     objetos = Objeto.objects.all().order_by('-id')
@@ -14,7 +15,7 @@ def crear_objeto(request):
     else:
         formulario = ObjetoForm()
     
-    return render(request, 'objetos/formulario.html', {'formulario': formulario, 'titulo': 'Crear Objeto'})
+    return render(request, 'objetos/formulario.html', {'form': formulario, 'titulo': 'Crear Objeto'})
 
 def editar_objeto(request, id):
     objeto = get_object_or_404(Objeto, id=id)
@@ -26,10 +27,11 @@ def editar_objeto(request, id):
     else:
         formulario = ObjetoForm(instance=objeto)
     
-    return render(request, 'objetos/formulario.html', {'formulario': formulario, 'titulo': 'Editar Objeto'})
+    return render(request, 'objetos/formulario.html', {'form': formulario, 'titulo': 'Editar Objeto'})
 
 def eliminar_objeto(request, id):
     objeto = get_object_or_404(Objeto, id=id)
     if request.method == 'POST':
         objeto.delete()
         return redirect('listar_objetos')
+    return render(request, 'objetos/eliminar.html', {'objeto': objeto})

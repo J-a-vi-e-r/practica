@@ -1,7 +1,7 @@
 from django import forms
 from .models import Objeto
 
-class ObjetoForm(form.ModelForm):
+class ObjetoForm(forms.ModelForm):
     class Meta:
         model = Objeto
         fields = ["nombre","descripcion","entregado"]

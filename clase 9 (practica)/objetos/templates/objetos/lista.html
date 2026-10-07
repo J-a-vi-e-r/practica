@@ -1,0 +1,27 @@
+<!-- lista de objetos sea en cards  -->
+{% extends 'objetos/base.html' %}
+
+{% block titulo %}Lista de Objetos{% endblock %}
+
+{% block contenido %}
+    <h1>Lista de Objetos</h1>
+    <div class="row">
+        {% for objeto in objetos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ objeto.nombre }}</h5>
+                        <p class="card-text">{{ objeto.descripcion }}</p>
+                        <p class="card-text"><strong>Entregado:</strong> {{ objeto.entregado|yesno:"Sí,No" }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'editar_objeto' objeto.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'eliminar_objeto' objeto.id %}" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay objetos disponibles.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
